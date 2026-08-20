@@ -6,9 +6,10 @@ ENV PIP_NO_CACHE_DIR=1
 
 WORKDIR /app
 
-# FFmpeg + build dependencies required by PyAV and other native packages
+# System dependencies required by Python packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
+    git \
     pkg-config \
     gcc \
     g++ \
