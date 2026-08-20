@@ -1,110 +1,120 @@
-# AI Learning Assistant (Elite Edition)
+# EduMitra-AI — Production AI Learning Companion SaaS
 
-An advanced, robust AI-powered learning platform that transforms complex PDFs and YouTube videos into structured knowledge. This version features a **Multi-LLM Fallback Architecture** designed to bypass free-tier rate limits and ensure maximum uptime.
+**EduMitra-AI** is a commercial-grade, AI-powered personalized learning platform that transforms YouTube videos and PDF documents into an interactive learning experience with grounded AI tutoring, adaptive quizzes, Leitner spaced repetition flashcards, AI notes studio, learning paths, viva/interview examiner, and analytics.
 
-## 🚀 Key Improvements (Internship Assignment)
+---
 
-- **SDK Migration**: Fully migrated from legacy `google-generativeai` to the modern `google-genai` SDK.
-- **OpenRouter Integration**: Integrated OpenRouter as the primary content generation provider to access high-speed free models (Llama 3.3, Qwen 2.5, etc.).
-- **Multi-Model Rotation**: Autonomous fallback system that rotates through multiple free models if an upstream provider is busy.
-- **Hybrid LLM Strategy**: 
-  - **Gemini**: Primary for document embeddings (optimized for RAG) and final generator fallback.
-  - **OpenRouter**: Primary for interactive Chat, Quiz, and Flashcard generation.
-- **Robust Error Handling**: Centralized exponential backoff and graceful initialization for Supabase and LLM clients.
+## 🌟 Key Features
 
-## 🛠️ Tech Stack
+1. **Upload & Ingestion System**
+   - **YouTube Ingestion**: Extract public captions/subtitles via `youtube-transcript-api`.
+   - **PDF Processing**: Extract text using `pymupdf` with file validation (20MB limit).
+   - **Vector Database**: Chunk text and store 768-dim embeddings in Supabase `pgvector`.
 
-| Layer | Technology |
-|---|---|
-| **Frontend** | Next.js 14+ (App Router), TailwindCSS, shadcn/ui |
-| **Backend** | Python FastAPI |
-| **Database** | Supabase (PostgreSQL) + pgvector |
-| **Primary LLMs** | OpenRouter (Llama 3.3 70B, Qwen 2.5 72B), Gemini 2.0 Flash |
-| **Embeddings** | Gemini `gemini-embedding-001` (Custom Paced for Free Tier) |
+2. **Grounded RAG AI Chat Tutor (`/chat`)**
+   - RAG pipeline with similarity thresholding and untrusted prompt isolation.
+   - Grounded source citations modal showing chunk index, vector similarity %, and context snippet.
+   - Code syntax highlighting, copy, regenerate, and one-click bookmarking.
 
-## ✨ Features
+3. **AI Notes Studio (`/notes`)**
+   - Generate Exam Preparation Notes, Revision Cheat Sheets, Executive Summaries, and Detailed Notes.
+   - Embedded Markdown editor with live preview, autosave, PDF export (`jspdf`), and `.md` export.
 
-- **📺 YouTube Mastery**: Fetches transcripts, chunks content with sliding windows, and stores vectorized knowledge.
-- **📄 PDF Intelligence**: Extracts text via PyMuPDF with layout-aware chunking.
-- **🗂️ Smart Flashcards**: Generates comprehensive Q&A cards with a premium 3D flip interface.
-- **🧠 Adaptive Quizzes**: MCQ generation with instant feedback and pedagogical explanations.
-- **💬 Streaming RAG Chat**: Real-time interactive chat grounded in your documents with SSE streaming.
-- **🔄 Smart Fallback**: Automatically switches models in < 1s if a rate limit is detected.
+4. **AI Learning Paths (`/learning-paths`)**
+   - Sequenced curriculum roadmaps with prerequisite tracking, estimated study hours, and interactive topic checklists.
 
-## 🏗️ Architecture
+5. **AI Viva & Interview Examiner (`/viva`)**
+   - Test technical readiness with AI examiner asking depth questions.
+   - Technical evaluation with scoring out of 10, correctness assessment, strengths, weaknesses, ideal answers, and improvement tips.
 
-```mermaid
-graph TD
-    User([User]) <--> NextJS[Next.js Frontend]
-    NextJS <--> FastAPI[FastAPI Backend]
-    
-    subgraph "Knowledge Retrieval (RAG)"
-        FastAPI --> GeminiEmb[Gemini Embedding API]
-        GeminiEmb --> Supabase[(Supabase pgvector)]
-        Supabase --> FastAPI
-    end
-    
-    subgraph "Generation Engine (Logic)"
-        FastAPI --> OR[OpenRouter Client]
-        OR -- Failover --> Models{Model Rotation}
-        Models -- Model 1 --> Qwen[Qwen 2.5 72B]
-        Models -- Model 2 --> Llama[Llama 3.3 70B]
-        Models -- Model 3 --> Gemma[Gemma 3]
-        Models -- Exhausted --> GeminiGen[Gemini 2.0 Flash]
-    end
+6. **Spaced Repetition Flashcards (`/flashcards`)**
+   - 3D flip card interaction with keyboard shortcuts (`Space`, `←`, `→`).
+   - Leitner Spaced Repetition review ratings: **Again (1d)**, **Hard (3d)**, **Good (5d)**, **Easy (7d)**.
+   - One-click Flashcards PDF download.
+
+7. **Adaptive Quizzes (`/quiz`)**
+   - MCQ quizzes with difficulty selection (Easy, Medium, Hard, Adaptive AI).
+   - Pedagogical explanations for every option and Quiz PDF export.
+
+8. **Bookmarks Management & Global Command Palette (`Ctrl + K`)**
+   - Global command palette (`Ctrl + K` or `Cmd + K`) for instant search across documents, pages, tools, and actions.
+   - Save and organize AI chat insights, concepts, flashcards, and notes.
+
+9. **Analytics & Study Timeline (`/analytics`, `/history`)**
+   - Computed metrics from real quiz attempts, flashcard sessions, and viva scores. Zero fabricated graphs.
+
+---
+
+## 🏗 System Architecture
+
+```
+EduMitra-AI/
+├── client/                     # Next.js 16 (React 19, Tailwind CSS, Turbopack, Zustand)
+│   ├── app/
+│   │   ├── (Dashboard)         # Premium stats, active workspace, hero & quick prompt bar
+│   │   ├── upload/             # Real-time state machine upload interface
+│   │   ├── chat/               # RAG chat tutor with citations & source modal
+│   │   ├── notes/              # AI Notes generator & Markdown editor
+│   │   ├── learning-paths/     # AI Learning Paths with topic progress
+│   │   ├── viva/               # AI Viva & Technical Interview Examiner
+│   │   ├── flashcards/         # Spaced Repetition 3D flip cards
+│   │   ├── quiz/               # Adaptive MCQ quizzes
+│   │   ├── bookmarks/          # Bookmarks library
+│   │   ├── my-learning/        # Library management (Search, Filter, Delete)
+│   │   ├── analytics/          # Real database study analytics
+│   │   ├── history/            # Chronological study timeline
+│   │   ├── tools/              # Summary, Key Concepts, Study Plan
+│   │   └── settings/           # Appearance, Profile, AI Engine status
+│   ├── components/
+│   │   ├── CommandPalette.tsx  # Ctrl+K Global Search
+│   │   ├── Sidebar.tsx         # Sidebar navigation
+│   │   ├── MarkdownRenderer.tsx# GitHub Markdown renderer
+│   │   └── DocumentCard.tsx    # Reusable document card
+│   └── lib/
+│       ├── api.ts              # Centralized API client with AbortController timeouts
+│       ├── store.ts            # Zustand store with persistence
+│       └── pdfExport.ts        # jsPDF export utilities
+└── server/                     # FastAPI Backend (Python 3.11, Supabase, Gemini)
+    ├── api/index.py            # Main FastAPI app & router registration
+    ├── routers/                # Endpoint routers (chat, quiz, flashcards, notes, viva, paths, bookmarks)
+    ├── utils/                  # Supabase pgvector ops, Gemini embeddings, text chunker
+    └── migrations/             # SQL database migration scripts
 ```
 
-## ⚙️ Setup
+---
 
-### Prerequisites
-- Node.js 18+ & Python 3.10+
-- [Supabase Project](https://supabase.com)
-- [Gemini API Key](https://aistudio.google.com)
-- [OpenRouter API Key](https://openrouter.ai) (Recommended for stability)
+## 🛠 Local Setup Instructions
 
-### 1. Database Initialization
-Execute the [`supabase_setup.sql`](./supabase_setup.sql) script in your Supabase SQL Editor. This sets up the `vector` extensions, tables, and the `match_chunks` RPC.
-
-### 2. Backend Configuration
+### 1. Backend (FastAPI)
 ```bash
 cd server
 python -m venv venv
-source venv/bin/activate # Windows: .\venv\Scripts\activate
+# On Windows:
+.\venv\Scripts\activate
+# On Linux/macOS:
+source venv/bin/activate
+
 pip install -r requirements.txt
-cp .env.example .env
+python main.py
 ```
-Fill in your `.env` with:
-- `GEMINI_API_KEY`
-- `SUPABASE_URL` & `SUPABASE_SERVICE_KEY`
-- `OPENROUTER_API_KEY` (Optional but highly recommended)
+Backend will run at: `http://localhost:8000`
 
-### 3. Run the App
-- **Backend (Local)**: `cd server && python main.py`
-- **Frontend (Local)**: `cd client && npm run dev`
-
-## 🚀 Deployment (Vercel)
-
-This project is configured as a monorepo for seamless deployment on Vercel.
-
-### Backend (Python FastAPI)
-The server uses the `api/index.py` convention for Vercel's Python runtime. 
-1. Connect your GitHub repository to Vercel.
-2. Vercel will automatically detect the configuration in `vercel.json`.
-3. Add the environment variables from `server/.env.example` to your Vercel Project Settings.
-
-### Frontend (Next.js)
-The frontend in `client/` can be deployed as a standard Next.js project. If deploying separately, ensure you update the `NEXT_PUBLIC_API_URL` to point to your Vercel backend URL.
-
-## 📂 Project Structure
-
-- `client/`: NextJS 14 frontend with Zustand state management.
-- `server/`:
-    - `routers/`: Modular API endpoints (Chat, Flashcards, Quiz).
-    - `utils/`: 
-        - `embeddings.py`: Smart-pacing for free-tier embeddings.
-        - `error_helpers.py`: Centralized retry and LLM rotation logic.
-        - `supabase_ops.py`: Clean abstraction for pgvector operations.
-- `supabase_setup.sql`: Database schema and RAG functions.
+### 2. Frontend (Next.js)
+```bash
+cd client
+npm install
+npm run dev
+```
+Frontend will run at: `http://localhost:3000`
 
 ---
-*Built for the AI Learning Assistant internship assignment.*
+
+## 🛢 Database Migration
+Run `server/migrations/001_initial_saas_schema.sql` in your Supabase Dashboard SQL Editor to set up `pgvector`, tables, and Row Level Security (RLS) policies.
+
+---
+
+## 🚀 Deployment
+
+- **Frontend**: Deploy `client/` to **Vercel** or **Netlify**. Set `NEXT_PUBLIC_API_URL=https://your-backend.render.com`.
+- **Backend**: Deploy `server/` to **Render**, **Railway**, or **Fly.io**. Set environment variables from `.env.example`.

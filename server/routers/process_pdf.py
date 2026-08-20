@@ -1,11 +1,13 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File
+from fastapi import APIRouter, HTTPException, UploadFile, File, Depends
+from typing import Optional
 import asyncio
-import fitz  # PyMuPDF
+import pymupdf as fitz  # PyMuPDF
 
 from utils.chunker import chunk_text
 from utils.embeddings import generate_embeddings_batch_async
 from utils.supabase_ops import store_document, store_chunks
 from utils.error_helpers import gemini_error_to_http
+from utils.auth import get_current_user
 
 router = APIRouter()
 
@@ -16,7 +18,7 @@ ALLOWED_CONTENT_TYPES = {"application/pdf", "application/x-pdf"}
 
 
 @router.post("/process-pdf")
-async def process_pdf(file: UploadFile = File(...)):
+async def process_pdf(file: UploadFile = File(...), user_id: Optional[str] = Depends(get_current_user)):
     """
     Process an uploaded PDF: extract text, chunk it, embed it, store in Supabase.
     """
@@ -119,7 +121,7 @@ async def process_pdf(file: UploadFile = File(...)):
     try:
         document_id = await loop.run_in_executor(
             None,
-            lambda: store_document(title=title, source_type="pdf", source_url=None),
+            lambda: store_document(title=title, source_type="pdf", source_url=None, user_id=user_id),
         )
         chunk_count = await loop.run_in_executor(
             None, lambda: store_chunks(document_id, chunks, embeddings)

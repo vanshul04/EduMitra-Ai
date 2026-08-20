@@ -1,8 +1,14 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/Sidebar";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { CommandPalette } from "@/components/CommandPalette";
+import { AuthProvider } from "@/auth/AuthProvider";
+import { ProtectedRoute } from "@/auth/ProtectedRoute";
+import { usePathname } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,25 +20,41 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "LearnAI – AI Learning Assistant",
-  description:
-    "Transform YouTube videos and PDFs into flashcards, quizzes, and interactive AI chat sessions.",
-};
+const AUTH_PAGES = ["/login", "/signup", "/forgot-password", "/reset-password"];
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const isAuthPage = AUTH_PAGES.includes(pathname);
+
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex h-screen overflow-hidden bg-[#06060a] antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} flex h-screen overflow-hidden bg-slate-50 dark:bg-[#06060a] text-slate-900 dark:text-slate-100 antialiased font-sans`}
       >
-        <Sidebar />
-        <main className="flex-1 overflow-y-auto">{children}</main>
-        <Toaster richColors position="top-right" />
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <AuthProvider>
+            <ProtectedRoute>
+              {isAuthPage ? (
+                <main className="w-full h-screen overflow-y-auto bg-slate-50 dark:bg-[#06060a]">
+                  {children}
+                </main>
+              ) : (
+                <div className="flex h-screen w-full overflow-hidden">
+                  <Sidebar />
+                  <main className="flex-1 overflow-y-auto bg-slate-100/50 dark:bg-[#0b0c14]">
+                    {children}
+                  </main>
+                </div>
+              )}
+              {!isAuthPage && <CommandPalette />}
+            </ProtectedRoute>
+          </AuthProvider>
+          <Toaster richColors position="top-right" />
+        </ThemeProvider>
       </body>
     </html>
   );

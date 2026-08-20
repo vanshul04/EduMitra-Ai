@@ -53,6 +53,13 @@ except Exception as e:
     print("[!] Some features (database, RAG) will not work until this is fixed.\n")
 
 # Gemini configuration
-GEMINI_MODEL_ID = "gemini-2.0-flash"
-EMBEDDING_MODEL = "models/gemini-embedding-001"
+GEMINI_MODEL_ID = os.getenv("GEMINI_MODEL_ID", "gemini-3.6-flash")
+
+# Embeddings for RAG
+EMBEDDING_MODEL = os.getenv(
+    "EMBEDDING_MODEL",
+    "models/gemini-embedding-001"
+)
+
+# Must match your Supabase vector(768) column
 EMBEDDING_DIMENSIONS = 768

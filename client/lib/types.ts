@@ -5,6 +5,7 @@ export interface Document {
   title: string;
   source_type: "youtube" | "pdf";
   source_url?: string;
+  chunk_count?: number;
   created_at?: string;
 }
 
@@ -23,11 +24,25 @@ export interface ProcessPdfResponse {
   message: string;
 }
 
+// ─── Citation & Grounding Types ─────────────────────────────────────
+
+export interface Citation {
+  document_title: string;
+  chunk_index: number;
+  similarity: number;
+  snippet: string;
+  full_text?: string;
+}
+
 // ─── Flashcard Types ─────────────────────────────────────────────────
 
 export interface Flashcard {
   question: string;
   answer: string;
+  id?: string;
+  rating?: "again" | "hard" | "good" | "easy";
+  review_count?: number;
+  next_review?: string;
 }
 
 export interface FlashcardsResponse {
@@ -61,17 +76,115 @@ export interface QuizResponse {
 // ─── Chat Types ───────────────────────────────────────────────────────
 
 export interface ChatMessage {
+  id?: string;
   role: "user" | "assistant";
   content: string;
-  timestamp?: Date;
+  timestamp?: string | Date;
+  sources?: Citation[];
 }
 
 export interface ChatStreamChunk {
-  content: string;
+  content?: string;
+  citations?: Citation[];
   done: boolean;
   error?: string;
 }
 
-// ─── UI State Types ───────────────────────────────────────────────────
+// ─── AI Notes Types ───────────────────────────────────────────────────
+
+export type NoteType = "summary" | "exam" | "cheat_sheet" | "detailed";
+
+export interface Note {
+  id: string;
+  document_id?: string;
+  title: string;
+  note_type: NoteType;
+  content: string;
+  created_at?: string;
+}
+
+// ─── Bookmarks Types ─────────────────────────────────────────────────
+
+export type BookmarkCategory = "chat" | "concept" | "flashcard" | "note" | "general";
+
+export interface Bookmark {
+  id: string;
+  title: string;
+  category: BookmarkCategory;
+  content: string;
+  source_info?: string;
+  created_at?: string;
+}
+
+// ─── AI Viva / Interview Types ───────────────────────────────────────
+
+export interface VivaEvaluation {
+  score: number;
+  correctness: string;
+  strengths: string[];
+  weaknesses: string[];
+  ideal_answer: string;
+  tips: string[];
+}
+
+export interface VivaSession {
+  id: string;
+  document_id: string;
+  question: string;
+  user_answer: string;
+  evaluation: VivaEvaluation;
+  created_at?: string;
+}
+
+// ─── Learning Path Types ─────────────────────────────────────────────
+
+export interface PathModule {
+  module_number: number;
+  title: string;
+  description: string;
+  topics: string[];
+  estimated_minutes: number;
+  completed_topics?: string[];
+}
+
+export interface LearningPath {
+  document_id: string;
+  title: string;
+  prerequisites: string[];
+  estimated_hours: number;
+  difficulty: string;
+  modules: PathModule[];
+}
+
+// ─── Analytics & History Types ───────────────────────────────────────
+
+export interface QuizAttempt {
+  id: string;
+  document_id: string;
+  document_title: string;
+  score: number;
+  total_questions: number;
+  percentage: number;
+  difficulty?: string;
+  completed_at: string;
+}
+
+export interface FlashcardSession {
+  id: string;
+  document_id: string;
+  document_title: string;
+  cards_reviewed: number;
+  total_cards: number;
+  completed_at: string;
+}
+
+export interface StudyActivity {
+  id: string;
+  document_id: string;
+  document_title: string;
+  type: "upload" | "chat" | "quiz" | "flashcards" | "summarize" | "notes" | "viva" | "learning_path" | "study_plan" | "key_concepts";
+  timestamp: string;
+  details?: string;
+}
 
 export type ProcessingStatus = "idle" | "processing" | "success" | "error";
