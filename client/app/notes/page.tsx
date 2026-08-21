@@ -41,7 +41,7 @@ export default function NotesPage() {
 
   useEffect(() => {
     fetchNotesApi().then((data) => {
-      if (data.length > 0) setNotes(data);
+      setNotes(data || []);
     });
   }, [setNotes]);
 

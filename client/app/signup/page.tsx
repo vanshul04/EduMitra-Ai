@@ -5,22 +5,17 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
-  GraduationCap,
-  Sparkles,
   Mail,
   Lock,
   User as UserIcon,
-  Building,
-  BookOpen,
-  Calendar,
   Eye,
   EyeOff,
   ArrowRight,
   Loader2,
   CheckCircle2,
   AlertCircle,
-  ShieldCheck,
 } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/auth/useAuth";
@@ -86,7 +81,10 @@ export default function SignupPage() {
 
       if (error) {
         let msg = error.message;
-        if (msg.includes("already registered")) {
+        const lower = msg.toLowerCase();
+        if (lower.includes("rate limit") || lower.includes("rate_limit")) {
+          msg = "Too many email requests. Please wait a while before trying again.";
+        } else if (lower.includes("already registered") || lower.includes("already exists")) {
           msg = "An account with this email already exists. Try logging in.";
         }
         setErrorMessage(msg);
@@ -96,7 +94,10 @@ export default function SignupPage() {
         toast.success("Account created successfully!");
       }
     } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Signup failed.";
+      let msg = err instanceof Error ? err.message : "Signup failed.";
+      if (msg.toLowerCase().includes("rate limit")) {
+        msg = "Too many email requests. Please wait a while before trying again.";
+      }
       setErrorMessage(msg);
       toast.error(msg);
     } finally {
@@ -141,10 +142,7 @@ export default function SignupPage() {
       {/* Brand Header */}
       <div className="mb-6 text-center space-y-2">
         <Link href="/" className="inline-flex items-center gap-3 group">
-          <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 text-white shadow-xl shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-            <GraduationCap className="h-6 w-6" />
-            <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-amber-300 animate-pulse" />
-          </div>
+          <BrandLogo size="md" />
           <span className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             EduMitra<span className="text-indigo-600 dark:text-indigo-400">-AI</span>
           </span>
@@ -185,7 +183,7 @@ export default function SignupPage() {
                 <Input
                   type="text"
                   required
-                  placeholder="Vanshul Sharma"
+                  placeholder="Alex Johnson"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="pl-10 text-xs bg-slate-50 dark:bg-white/5 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white"

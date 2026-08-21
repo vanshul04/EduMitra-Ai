@@ -21,7 +21,7 @@ export default function BookmarksPage() {
 
   useEffect(() => {
     fetchBookmarksApi().then((data) => {
-      if (data.length > 0) setBookmarks(data);
+      setBookmarks(data || []);
     });
   }, [setBookmarks]);
 

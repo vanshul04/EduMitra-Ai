@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const AUTH_PAGES = ["/login", "/signup", "/forgot-password", "/reset-password"];
+const AUTH_PAGES = ["/", "/login", "/signup", "/forgot-password", "/reset-password", "/landing"];
 
 export default function RootLayout({
   children,
@@ -43,9 +43,9 @@ export default function RootLayout({
                   {children}
                 </main>
               ) : (
-                <div className="flex h-screen w-full overflow-hidden">
+                <div className="flex flex-col md:flex-row h-screen w-full overflow-hidden">
                   <Sidebar />
-                  <main className="flex-1 overflow-y-auto bg-slate-100/50 dark:bg-[#0b0c14]">
+                  <main className="flex-1 overflow-y-auto overflow-x-hidden bg-slate-100/50 dark:bg-[#0b0c14] w-full">
                     {children}
                   </main>
                 </div>

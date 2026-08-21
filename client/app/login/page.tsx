@@ -5,8 +5,6 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import {
-  GraduationCap,
-  Sparkles,
   Mail,
   Lock,
   Eye,
@@ -14,8 +12,8 @@ import {
   ArrowRight,
   Loader2,
   AlertCircle,
-  CheckCircle2,
 } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/auth/useAuth";
@@ -83,10 +81,7 @@ function LoginContent() {
       {/* Brand Header */}
       <div className="mb-8 text-center space-y-2">
         <Link href="/" className="inline-flex items-center gap-3 group">
-          <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 text-white shadow-xl shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-            <GraduationCap className="h-6 w-6" />
-            <Sparkles className="absolute -top-1 -right-1 h-4 w-4 text-amber-300 animate-pulse" />
-          </div>
+          <BrandLogo size="md" />
           <span className="text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white">
             EduMitra<span className="text-indigo-600 dark:text-indigo-400">-AI</span>
           </span>

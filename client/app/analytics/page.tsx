@@ -15,8 +15,8 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { useLearningStore } from "@/lib/store";
+import { calculateStudyStreak } from "@/lib/utils";
 
 export default function AnalyticsPage() {
   const {
@@ -33,21 +33,31 @@ export default function AnalyticsPage() {
   const avgQuizScore =
     totalQuizzes > 0
       ? Math.round(
-          quizAttempts.reduce((acc, q) => acc + q.percentage, 0) / totalQuizzes
+          quizAttempts.reduce((acc: number, q) => acc + (q.percentage || 0), 0) / totalQuizzes
         )
       : 0;
 
-  const totalCards = flashcardSessions.reduce((acc, s) => acc + s.cards_reviewed, 0);
+  const totalCards = flashcardSessions.reduce((acc: number, s) => acc + (s.cards_reviewed || 0), 0);
   const totalNotes = notes.length;
   const totalViva = vivaSessions.length;
 
   const avgVivaScore =
     totalViva > 0
-      ? (vivaSessions.reduce((acc, v) => acc + (v.evaluation?.score || 0), 0) / totalViva).toFixed(1)
+      ? (vivaSessions.reduce((acc: number, v) => acc + (v.evaluation?.score || 0), 0) / totalViva).toFixed(1)
       : "N/A";
 
+  const allTimestamps = [
+    ...activities.map((a) => a.timestamp),
+    ...quizAttempts.map((q) => q.completed_at),
+    ...flashcardSessions.map((f) => f.completed_at),
+    ...notes.map((n) => n.created_at),
+    ...documentsList.map((d) => d.created_at),
+  ].filter(Boolean) as (string | number | Date)[];
+
+  const streakInfo = calculateStudyStreak(allTimestamps);
+
   return (
-    <div className="min-h-screen px-6 py-8 max-w-6xl mx-auto space-y-6">
+    <div className="min-h-screen px-4 sm:px-6 py-6 sm:py-8 max-w-6xl mx-auto space-y-6">
       {/* Title */}
       <div>
         <h1 className="flex items-center gap-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
@@ -60,14 +70,18 @@ export default function AnalyticsPage() {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
         <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 space-y-1">
           <div className="flex items-center justify-between text-slate-400">
             <span className="text-xs font-semibold">Active Streak</span>
             <Flame className="h-4 w-4 text-amber-500" />
           </div>
-          <p className="text-2xl font-bold text-slate-900 dark:text-white">7 Days</p>
-          <p className="text-[11px] text-emerald-500 font-semibold">🔥 Consistent learner</p>
+          <p className="text-2xl font-bold text-slate-900 dark:text-white">
+            {streakInfo.streakCount} {streakInfo.streakCount === 1 ? "Day" : "Days"}
+          </p>
+          <p className={`text-[11px] font-semibold ${streakInfo.streakCount > 0 ? "text-emerald-500" : "text-slate-400"}`}>
+            {streakInfo.streakCount > 0 ? "🔥 Consistent learner" : "No study activity today"}
+          </p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 space-y-1">

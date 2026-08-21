@@ -1,22 +1,29 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 import asyncio
 from typing import List, Optional
 from config import supabase
 from utils.supabase_ops import _check_supabase
+from utils.auth import get_current_user
 
 router = APIRouter()
 
 @router.get("/documents")
-async def list_documents(source_type: Optional[str] = None, search: Optional[str] = None):
+async def list_documents(
+    source_type: Optional[str] = None,
+    search: Optional[str] = None,
+    user_id: Optional[str] = Depends(get_current_user),
+):
     """
     Fetch all processed documents from Supabase.
-    Supports filtering by source_type ('pdf' or 'youtube') and search query.
+    Supports filtering by source_type ('pdf' or 'youtube'), search query, and authenticated user_id.
     """
     _check_supabase()
     loop = asyncio.get_event_loop()
 
     def _query():
         query = supabase.table("documents").select("*").order("created_at", desc=True)
+        if user_id:
+            query = query.eq("user_id", user_id)
         if source_type in ("pdf", "youtube"):
             query = query.eq("source_type", source_type)
         if search and search.strip():

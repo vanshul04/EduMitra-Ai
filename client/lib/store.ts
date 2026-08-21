@@ -77,7 +77,7 @@ interface LearningStore {
 export const useLearningStore = create<LearningStore>()(
   persist(
     (set) => ({
-      userName: "Vanshul",
+      userName: "",
       setUserName: (name) => set({ userName: name }),
 
       currentDocument: null,
@@ -206,7 +206,22 @@ export const useLearningStore = create<LearningStore>()(
           ],
         })),
 
-      resetAll: () => set({ flashcards: [], quizQuestions: [], chatHistory: [] }),
+      resetAll: () =>
+        set({
+          userName: "",
+          currentDocument: null,
+          documentsList: [],
+          flashcards: [],
+          quizQuestions: [],
+          chatHistory: [],
+          quizAttempts: [],
+          flashcardSessions: [],
+          notes: [],
+          bookmarks: [],
+          vivaSessions: [],
+          learningPaths: {},
+          activities: [],
+        }),
     }),
     {
       name: "edumitra-ai-saas-store",

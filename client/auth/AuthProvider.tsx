@@ -31,13 +31,15 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+import { useLearningStore } from "@/lib/store";
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchProfile = async (userId: string) => {
+  const fetchProfile = async (userId: string, authUser?: User | null) => {
     try {
       const { data, error } = await supabase
         .from("profiles")
@@ -47,6 +49,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (!error && data) {
         setProfile(data as UserProfile);
+      } else {
+        // Auto-create / initialize profile for user
+        const targetUser = authUser || user;
+        const fallbackName = targetUser?.user_metadata?.full_name || targetUser?.email?.split("@")[0] || "Learner";
+        const initialProfile: UserProfile = {
+          id: userId,
+          full_name: fallbackName,
+          email: targetUser?.email || "",
+          college: targetUser?.user_metadata?.college || "",
+          course: targetUser?.user_metadata?.course || "",
+          year_of_study: targetUser?.user_metadata?.year_of_study || "Year 1",
+        };
+
+        const { data: upsertData } = await supabase
+          .from("profiles")
+          .upsert(initialProfile)
+          .select()
+          .maybeSingle();
+
+        setProfile((upsertData as UserProfile) || initialProfile);
       }
     } catch (err) {
       console.error("Profile fetch error:", err);
@@ -59,19 +81,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
-        fetchProfile(session.user.id);
+        fetchProfile(session.user.id, session.user);
       }
       setLoading(false);
     });
 
     // 2. Listen to auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
-        await fetchProfile(session.user.id);
+        await fetchProfile(session.user.id, session.user);
       } else {
         setProfile(null);
+        useLearningStore.getState().resetAll();
       }
       setLoading(false);
     });
@@ -117,6 +140,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(null);
     setSession(null);
     setProfile(null);
+    useLearningStore.getState().resetAll();
   };
 
   const resetPassword = async (email: string) => {
