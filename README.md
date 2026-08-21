@@ -975,7 +975,7 @@ the platform.
 ### 🚀 EduMitra-AI
 
 **Live Application:**
-`YOUR_FRONTEND_URL`
+https://edu-mitra-ai-five.vercel.app/
 
 **Backend API:**
 [https://edumitra-ai-backendd.onrender.com](https://edumitra-ai-backendd.onrender.com)
