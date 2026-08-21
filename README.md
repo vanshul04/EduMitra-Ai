@@ -991,24 +991,4 @@ the platform.
 Built with ❤️ by **Vanshul Lalwani**
 
 </p>
-```
-
-### Before you push
-
-Change this:
-
-```text
-YOUR_FRONTEND_URL
-```
-
-to your actual deployed frontend URL in **all occurrences**.
-
-Then run:
-
-```powershell
-git add README.md LICENSE
-git commit -m "docs: add production showcase README"
-git push origin main
-```
-
-One recommendation: **don't advertise the repository as open-source** because your `LICENSE` is explicitly restrictive. Calling it a **portfolio/showcase repository** is much more accurate.
+``-
