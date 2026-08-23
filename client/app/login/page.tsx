@@ -77,7 +77,7 @@ function LoginContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-slate-50 dark:bg-[#06060a]">
+    <div className="relative z-10 min-h-screen flex flex-col justify-center items-center px-4 py-12">
       {/* Brand Header */}
       <div className="mb-8 text-center space-y-2">
         <Link href="/" className="inline-flex items-center gap-3 group">
@@ -92,7 +92,7 @@ function LoginContent() {
       </div>
 
       {/* Login Card */}
-      <div className="w-full max-w-md rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c0d19] p-8 shadow-2xl space-y-6">
+      <div className="w-full max-w-md rounded-3xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#0c0d19]/90 backdrop-blur-xl p-8 shadow-2xl space-y-6">
         <div className="space-y-1">
           <h1 className="text-xl font-bold text-slate-900 dark:text-white">
             Log in to your account
@@ -145,7 +145,7 @@ function LoginContent() {
 
         <div className="relative flex items-center justify-center">
           <div className="w-full border-t border-slate-200 dark:border-white/10"></div>
-          <span className="absolute bg-white dark:bg-[#0c0d19] px-3 text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+          <span className="absolute bg-white/90 dark:bg-[#0c0d19]/90 px-3 text-[10px] uppercase font-bold text-slate-400 tracking-wider">
             Or login with email
           </span>
         </div>

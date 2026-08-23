@@ -161,6 +161,15 @@ async function fetchWithTimeout(
       );
     }
 
+    if (
+      error instanceof TypeError &&
+      (error.message.includes("Failed to fetch") || error.message.includes("fetch failed"))
+    ) {
+      throw new Error(
+        `Unable to connect to EduMitra backend API (${API_URL}). Please verify that the server is running.`
+      );
+    }
+
     throw error;
   }
 }

@@ -107,8 +107,8 @@ export default function SignupPage() {
 
   if (signedUpSuccess) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-slate-50 dark:bg-[#06060a]">
-        <div className="w-full max-w-md rounded-3xl border border-indigo-500/30 bg-white dark:bg-[#0c0d19] p-8 shadow-2xl text-center space-y-4">
+      <div className="relative z-10 min-h-screen flex flex-col justify-center items-center px-4 py-12">
+        <div className="w-full max-w-md rounded-3xl border border-indigo-500/30 bg-white/90 dark:bg-[#0c0d19]/90 backdrop-blur-xl p-8 shadow-2xl text-center space-y-4">
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/20 text-emerald-500 mx-auto animate-bounce">
             <CheckCircle2 className="h-10 w-10" />
           </div>
@@ -138,7 +138,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-slate-50 dark:bg-[#06060a]">
+    <div className="relative z-10 min-h-screen flex flex-col justify-center items-center px-4 py-12">
       {/* Brand Header */}
       <div className="mb-6 text-center space-y-2">
         <Link href="/" className="inline-flex items-center gap-3 group">
@@ -153,7 +153,7 @@ export default function SignupPage() {
       </div>
 
       {/* Signup Card */}
-      <div className="w-full max-w-lg rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c0d19] p-8 shadow-2xl space-y-6">
+      <div className="w-full max-w-lg rounded-3xl border border-slate-200 dark:border-white/10 bg-white/90 dark:bg-[#0c0d19]/90 backdrop-blur-xl p-8 shadow-2xl space-y-6">
         <div className="space-y-1">
           <h1 className="text-xl font-bold text-slate-900 dark:text-white">
             Create your EduMitra account

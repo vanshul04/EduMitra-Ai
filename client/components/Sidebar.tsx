@@ -197,7 +197,7 @@ export function Sidebar() {
   return (
     <>
       {/* ─── MOBILE TOP HEADER BAR (sm & md screens) ─── */}
-      <div className="md:hidden flex h-14 w-full items-center justify-between border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#08080e] px-4 flex-shrink-0 z-30">
+      <div className="md:hidden flex h-14 w-full items-center justify-between border-b border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-[#08080e]/80 backdrop-blur-md px-4 flex-shrink-0 z-30">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMobileOpen(true)}
@@ -233,14 +233,14 @@ export function Sidebar() {
           />
 
           {/* Sliding drawer panel */}
-          <div className="relative flex h-full w-72 max-w-[80vw] flex-col bg-slate-50 dark:bg-[#08080e] p-4 shadow-2xl z-50 border-r border-slate-200 dark:border-white/10">
+          <div className="relative flex h-full w-72 max-w-[80vw] flex-col bg-slate-50/90 dark:bg-[#08080e]/90 backdrop-blur-xl p-4 shadow-2xl z-50 border-r border-slate-200 dark:border-white/10">
             {renderNavContent(() => setMobileOpen(false))}
           </div>
         </div>
       )}
 
       {/* ─── DESKTOP SIDEBAR (md+ screens) ─── */}
-      <aside className="hidden md:flex h-screen w-64 flex-shrink-0 flex-col border-r border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#08080e] px-4 py-5 transition-colors">
+      <aside className="hidden md:flex h-screen w-64 flex-shrink-0 flex-col border-r border-slate-200 dark:border-white/10 bg-slate-50/70 dark:bg-[#08080e]/70 backdrop-blur-md px-4 py-5 transition-colors">
         {renderNavContent()}
       </aside>
     </>

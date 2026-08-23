@@ -14,9 +14,9 @@ export default function HomePage() {
   const displayName = profile?.full_name || user?.email?.split("@")[0] || "Learner";
 
   return (
-    <div className="min-h-screen bg-[#06060a] text-slate-100 font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="relative z-10 min-h-screen text-slate-100 font-sans selection:bg-indigo-500 selection:text-white">
       {/* ─── PUBLIC TOP HEADER ─── */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#06060a]/80 backdrop-blur-md px-4 sm:px-8 py-4 flex items-center justify-between">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-black/40 backdrop-blur-md px-4 sm:px-8 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
           <BrandLogo size="sm" />
           <span className="text-xl font-extrabold tracking-tight text-white">
@@ -98,7 +98,7 @@ export default function HomePage() {
       </main>
 
       {/* ─── FOOTER ─── */}
-      <footer className="border-t border-white/10 bg-[#040407] py-8 text-center text-xs text-slate-500">
+      <footer className="border-t border-white/10 bg-black/40 backdrop-blur-md py-8 text-center text-xs text-slate-500">
         <p>© 2026 EduMitra-AI. Personal AI Learning & Exam Prep System.</p>
       </footer>
     </div>
