@@ -106,7 +106,7 @@ export default function DashboardPage() {
       {/* Global AI Quick Bar */}
       <form
         onSubmit={handleGlobalPromptSubmit}
-        className="relative flex items-center rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c0d19] px-4 py-3 shadow-lg group focus-within:border-indigo-500 transition-colors"
+        className="relative flex items-center rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/40 backdrop-blur-md px-4 py-3 shadow-lg group focus-within:border-indigo-500 transition-colors"
       >
         <Sparkles className="h-5 w-5 text-indigo-500 mr-3 flex-shrink-0" />
         <input
@@ -130,7 +130,7 @@ export default function DashboardPage() {
 
       {/* Active Document Hero Card */}
       {currentDocument ? (
-        <div className="relative overflow-hidden rounded-3xl border border-indigo-500/30 bg-gradient-to-r from-indigo-900/50 via-slate-900 to-slate-900/80 p-6 sm:p-8 shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl border border-indigo-500/30 bg-black/40 backdrop-blur-md p-6 sm:p-8 shadow-xl">
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-2 max-w-xl">
               <div className="flex items-center gap-2">
@@ -177,7 +177,7 @@ export default function DashboardPage() {
           </div>
         </div>
       ) : (
-        <div className="rounded-3xl border border-dashed border-slate-300 dark:border-white/10 bg-slate-50 dark:bg-white/[0.02] p-6 sm:p-8 text-center space-y-3">
+        <div className="rounded-3xl border border-dashed border-slate-300 dark:border-white/10 bg-black/30 backdrop-blur-md p-6 sm:p-8 text-center space-y-3">
           <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
             No active learning workspace
           </h2>
@@ -194,7 +194,7 @@ export default function DashboardPage() {
 
       {/* Real Analytics Statistics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 shadow-sm space-y-1">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 shadow-sm space-y-1">
           <div className="flex items-center justify-between text-slate-400">
             <span className="text-xs font-semibold">Study Streak</span>
             <Flame className="h-4 w-4 text-amber-500" />
@@ -207,7 +207,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 shadow-sm space-y-1">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 shadow-sm space-y-1">
           <div className="flex items-center justify-between text-slate-400">
             <span className="text-xs font-semibold">Library Material</span>
             <BookOpen className="h-4 w-4 text-indigo-500" />
@@ -218,7 +218,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 shadow-sm space-y-1">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 shadow-sm space-y-1">
           <div className="flex items-center justify-between text-slate-400">
             <span className="text-xs font-semibold">Quiz Accuracy</span>
             <Award className="h-4 w-4 text-emerald-500" />
@@ -231,7 +231,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 shadow-sm space-y-1">
+        <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 shadow-sm space-y-1">
           <div className="flex items-center justify-between text-slate-400">
             <span className="text-xs font-semibold">Cards & Notes</span>
             <Brain className="h-4 w-4 text-violet-500" />
@@ -251,7 +251,7 @@ export default function DashboardPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <Link href="/chat">
-            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 hover:border-indigo-500/40 transition-all shadow-sm">
+            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 hover:border-indigo-500/40 transition-all shadow-sm">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-3 group-hover:scale-105 transition-transform">
                 <BookOpen className="h-5 w-5" />
               </div>
@@ -265,7 +265,7 @@ export default function DashboardPage() {
           </Link>
 
           <Link href="/notes">
-            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 hover:border-indigo-500/40 transition-all shadow-sm">
+            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 hover:border-indigo-500/40 transition-all shadow-sm">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-3 group-hover:scale-105 transition-transform">
                 <FileText className="h-5 w-5" />
               </div>
@@ -279,7 +279,7 @@ export default function DashboardPage() {
           </Link>
 
           <Link href="/learning-paths">
-            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 hover:border-indigo-500/40 transition-all shadow-sm">
+            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 hover:border-indigo-500/40 transition-all shadow-sm">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-3 group-hover:scale-105 transition-transform">
                 <Compass className="h-5 w-5" />
               </div>
@@ -293,7 +293,7 @@ export default function DashboardPage() {
           </Link>
 
           <Link href="/viva">
-            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 hover:border-indigo-500/40 transition-all shadow-sm">
+            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 hover:border-indigo-500/40 transition-all shadow-sm">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-3 group-hover:scale-105 transition-transform">
                 <Mic className="h-5 w-5" />
               </div>
@@ -307,7 +307,7 @@ export default function DashboardPage() {
           </Link>
 
           <Link href="/flashcards">
-            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 hover:border-emerald-500/40 transition-all shadow-sm">
+            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 hover:border-emerald-500/40 transition-all shadow-sm">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 mb-3 group-hover:scale-105 transition-transform">
                 <Brain className="h-5 w-5" />
               </div>
@@ -321,7 +321,7 @@ export default function DashboardPage() {
           </Link>
 
           <Link href="/quiz">
-            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 hover:border-violet-500/40 transition-all shadow-sm">
+            <div className="group rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-5 hover:border-violet-500/40 transition-all shadow-sm">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10 text-violet-600 dark:text-violet-400 mb-3 group-hover:scale-105 transition-transform">
                 <HelpCircle className="h-5 w-5" />
               </div>
@@ -337,7 +337,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Trust & Value Section */}
-      <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-gradient-to-br from-indigo-500/5 via-slate-900/40 to-violet-500/5 p-6 sm:p-8 space-y-6 shadow-sm">
+      <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-black/30 backdrop-blur-md p-6 sm:p-8 space-y-6 shadow-sm">
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
             <ShieldCheck className="h-4 w-4" /> Security & Platform Value
@@ -351,7 +351,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 space-y-2">
+          <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 p-4 space-y-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
               <ShieldCheck className="h-5 w-5" />
             </div>
@@ -363,7 +363,7 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 space-y-2">
+          <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 p-4 space-y-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-500">
               <Sparkles className="h-5 w-5" />
             </div>
@@ -375,7 +375,7 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-4 space-y-2">
+          <div className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 p-4 space-y-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-500/10 text-violet-500">
               <Award className="h-5 w-5" />
             </div>

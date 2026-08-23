@@ -240,7 +240,7 @@ export function Sidebar() {
       )}
 
       {/* ─── DESKTOP SIDEBAR (md+ screens) ─── */}
-      <aside className="hidden md:flex h-screen w-64 flex-shrink-0 flex-col border-r border-slate-200 dark:border-white/10 bg-slate-50/70 dark:bg-[#08080e]/70 backdrop-blur-md px-4 py-5 transition-colors">
+      <aside className="hidden md:flex h-screen w-64 flex-shrink-0 flex-col border-r border-slate-200 dark:border-white/10 bg-slate-50/80 dark:bg-black/30 backdrop-blur-md px-4 py-5 transition-colors">
         {renderNavContent()}
       </aside>
     </>

@@ -85,7 +85,7 @@ export function ProductSystemVisualization() {
   return (
     <div className="space-y-16 py-8">
       {/* ─── SECTION 8: PRODUCT VISUALIZATION ─── */}
-      <section className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-white/10 bg-[#06060a] p-6 sm:p-10 text-white shadow-2xl space-y-10">
+      <section className="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-white/10 bg-black/40 backdrop-blur-md p-6 sm:p-10 text-white shadow-2xl space-y-10">
         {/* Subtle grid background texture */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
 
@@ -107,7 +107,7 @@ export function ProductSystemVisualization() {
         <div className="relative z-10 space-y-8">
           {/* Central Root Document Node */}
           <div className="flex flex-col items-center justify-center">
-            <div className="relative group cursor-pointer rounded-2xl border border-indigo-500/40 bg-gradient-to-br from-indigo-900/60 via-slate-900 to-slate-900/90 px-6 py-4 shadow-xl shadow-indigo-500/10 hover:border-indigo-400 transition-all text-center space-y-1">
+            <div className="relative group cursor-pointer rounded-2xl border border-indigo-500/40 bg-black/50 backdrop-blur-md px-6 py-4 shadow-xl shadow-indigo-500/10 hover:border-indigo-400 transition-all text-center space-y-1">
               <div className="flex items-center justify-center gap-2 text-indigo-400">
                 <BookOpen className="h-5 w-5" />
                 <span className="text-xs font-bold uppercase tracking-wider">Uploaded Learning Material</span>
@@ -203,7 +203,7 @@ export function ProductSystemVisualization() {
 
         {/* 4 Differentiators Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c0d19] p-6 space-y-3 shadow-sm hover:border-indigo-500/30 transition-colors">
+          <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-6 space-y-3 shadow-sm hover:border-indigo-500/30 transition-colors">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
               <ShieldCheck className="h-5 w-5" />
             </div>
@@ -215,7 +215,7 @@ export function ProductSystemVisualization() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c0d19] p-6 space-y-3 shadow-sm hover:border-indigo-500/30 transition-colors">
+          <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-6 space-y-3 shadow-sm hover:border-indigo-500/30 transition-colors">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
               <Brain className="h-5 w-5" />
             </div>
@@ -227,7 +227,7 @@ export function ProductSystemVisualization() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c0d19] p-6 space-y-3 shadow-sm hover:border-indigo-500/30 transition-colors">
+          <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-6 space-y-3 shadow-sm hover:border-indigo-500/30 transition-colors">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-rose-500/10 text-rose-600 dark:text-rose-400">
               <Mic className="h-5 w-5" />
             </div>
@@ -239,7 +239,7 @@ export function ProductSystemVisualization() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0c0d19] p-6 space-y-3 shadow-sm hover:border-indigo-500/30 transition-colors">
+          <div className="rounded-3xl border border-slate-200 dark:border-white/10 bg-white/80 dark:bg-black/30 backdrop-blur-md p-6 space-y-3 shadow-sm hover:border-indigo-500/30 transition-colors">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-400">
               <Layers className="h-5 w-5" />
             </div>
@@ -254,7 +254,7 @@ export function ProductSystemVisualization() {
       </section>
 
       {/* ─── SECTION 10: FINAL CTA ─── */}
-      <section className="relative overflow-hidden rounded-3xl border border-indigo-500/30 bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-900 p-8 sm:p-12 text-center space-y-6 shadow-2xl">
+      <section className="relative overflow-hidden rounded-3xl border border-indigo-500/30 bg-black/40 backdrop-blur-md p-8 sm:p-12 text-center space-y-6 shadow-2xl">
         <div className="max-w-2xl mx-auto space-y-3">
           <Badge className="bg-indigo-500/20 text-indigo-300 border-indigo-500/40 text-xs uppercase font-semibold">
             Ready to Upgrade Your Study Workflow?

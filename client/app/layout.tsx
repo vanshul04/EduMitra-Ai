@@ -47,7 +47,7 @@ export default function RootLayout({
               ) : (
                 <div className="relative z-10 flex flex-col md:flex-row h-screen w-full overflow-hidden">
                   <Sidebar />
-                  <main className="flex-1 overflow-y-auto overflow-x-hidden bg-slate-100/30 dark:bg-[#0b0c14]/40 backdrop-blur-sm w-full">
+                  <main className="flex-1 overflow-y-auto overflow-x-hidden bg-transparent w-full">
                     {children}
                   </main>
                 </div>
